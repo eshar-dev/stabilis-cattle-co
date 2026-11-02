@@ -1,0 +1,218 @@
+﻿---
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import heroBg from '../../assets/brand/hero-cows.png';
+import heroFg from '../../assets/brand/hero-cows-fg.png';
+import { orderingState, openBreed } from '../../data/store';
+
+const between = orderingState === 'between';
+const primary = between ? 'Tell me when the next one opens' : 'See what is open now';
+const href = between ? '#signup' : '#open-now';
+const railLabel = between ? 'Latest animal' : 'Open now';
+const railValue = between ? 'Fully spoken for' : openBreed;
+---
+
+<section id="top" class="hero" aria-labelledby="hero-title">
+  <div class="hero__stage" data-hero-stage>
+    <div class="hero__layer" data-hero-bg aria-hidden="true">
+      <div class="hero__frame">
+        <Image src={heroBg} alt="" widths={[1400, 2000, 2600]} sizes="130vw" loading="eager" fetchpriority="high" format="webp" quality={80} class="hero__img" />
+      </div>
+    </div>
+
+    <div class="hero__text" data-hero-text>
+      <span class="hero__eyebrow" data-hero-fade>Ranch direct beef · Dallas &amp; Fort Worth</span>
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__lead" data-hero-fade>Buy beef online from a ranch that sells</span>
+        <span class="hero__big">
+          <span data-hero-line>one animal</span>
+          <span data-hero-line>at a time</span>
+        </span>
+      </h1>
+    </div>
+
+    <div class="hero__layer hero__layer--fg" data-hero-fg aria-hidden="true">
+      <div class="hero__frame">
+        <Image src={heroFg} alt="" widths={[1400, 2000, 2600]} sizes="130vw" loading="eager" format="webp" quality={80} class="hero__img" />
+      </div>
+    </div>
+
+    <div class="hero__shade" aria-hidden="true"></div>
+
+    <div class="hero__cta" data-hero-cta>
+      <div class="hero__copy">
+        <p class="hero__delivery">
+          <Icon name="truck-delivery" size={28} />Delivered to your door in Dallas and Fort Worth. Free over $200.
+        </p>
+        <p class="hero__para">
+          We raise Red Angus, Wagyu and Akaushi cattle, and we take our time doing it. This is ranch direct beef. Instead of stocking a freezer with whatever came through last, we open one animal at a time, so when you sit down to a steak from us, you know where it came from.
+        </p>
+      </div>
+      <div class="hero__buttons">
+        <a class="btn btn--primary" href={href}>{primary}<Icon name="arrow-right" /></a>
+        <a class="btn btn--secondary btn--invert" href="#how">How ordering works</a>
+      </div>
+      <div class="hero__rail">
+        <span class="hero__dot" data-pulse></span>
+        <span>{railLabel} · {railValue}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero__stage {
+    position: relative;
+    container-type: size;
+    height: max(840px, 56vw, calc(100vh - 130px));
+    width: 100%;
+    overflow: hidden;
+    background: var(--c-hero-bg);
+    isolation: isolate;
+  }
+  .hero__layer {
+    position: absolute;
+    inset: -24px;
+    will-change: transform;
+  }
+  .hero__layer--fg {
+    pointer-events: none;
+  }
+  .hero__frame {
+    position: absolute;
+    inset: 24px;
+    container-type: size;
+  }
+  .hero__frame :global(.hero__img) {
+    position: absolute;
+    max-width: none;
+    width: max(115cqw, 130cqh);
+    height: auto;
+    left: calc(50cqw - 0.56 * max(115cqw, 130cqh));
+    top: calc(72cqh - 1.034 * max(115cqw, 130cqh));
+  }
+  .hero__text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(28cqh + 0.16 * max(115cqw, 130cqh));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(14px, 2cqh, 22px);
+    padding: 0 20px;
+    text-align: center;
+    will-change: transform;
+  }
+  .hero__eyebrow {
+    font-size: var(--fs-kicker);
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--c-green-900);
+  }
+  .hero__title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(10px, 1.6cqh, 18px);
+    color: var(--c-green-900);
+  }
+  .hero__lead {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: clamp(19px, min(2.2cqw, 3.6cqh), 34px);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+  .hero__big {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(52px, min(11cqw, 16cqh), 200px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+  }
+  .hero__big > span {
+    display: block;
+  }
+  .hero__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 46cqh;
+    background: linear-gradient(to top, rgb(12 30 20 / 0.86) 0%, rgb(12 30 20 / 0.6) 45%, rgb(12 30 20 / 0) 100%);
+    pointer-events: none;
+  }
+  .hero__cta {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 0 20px clamp(28px, 4cqh, 48px);
+    text-align: center;
+  }
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 780px;
+  }
+  .hero__delivery {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(20px, 1.7vw, 26px);
+    line-height: 1.2;
+    color: var(--c-gold);
+    text-wrap: balance;
+  }
+  .hero__para {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #e9e4d3;
+    text-wrap: pretty;
+  }
+  .hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .hero__rail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--c-cream);
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-shadow: 0 1px 8px rgb(12 30 20 / 0.5);
+  }
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c-gold);
+    flex: none;
+  }
+</style>
+
+

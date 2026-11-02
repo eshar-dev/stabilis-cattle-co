@@ -1,0 +1,69 @@
+---
+import Icon from '../ui/Icon.astro';
+import { orderingState } from '../../data/store';
+const isOpen = orderingState === 'open';
+---
+
+<div class="status">
+  <div class="status__pattern" data-pattern aria-hidden="true"></div>
+  <a href={isOpen ? '#open-now' : '#signup'} class="status__link">
+    <span class="status__dot" data-pulse></span>
+    {
+      isOpen ? (
+        <span><strong>Ordering is open.</strong> Choose your cuts while they are available.</span>
+      ) : (
+        <span><strong>Our latest animal is fully spoken for.</strong> Leave your email and we will tell you when the next one opens.</span>
+      )
+    }
+    <Icon name="arrow-right" size={16} />
+  </a>
+</div>
+
+<style>
+  .status {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-green-900);
+    color: var(--c-cream);
+    padding: 11px 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .status__pattern {
+    position: absolute;
+    inset: -200% 0;
+    background-color: var(--c-green-700);
+    -webkit-mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    pointer-events: none;
+  }
+  .status__link {
+    position: relative;
+    color: var(--c-cream);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: var(--c-cream);
+  }
+  .status__link:hover {
+    color: #fff;
+  }
+  .status__link strong {
+    font-weight: 600;
+  }
+  .status__link :global(.icon) {
+    color: var(--c-gold);
+  }
+  .status__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-gold);
+    flex: none;
+  }
+</style>

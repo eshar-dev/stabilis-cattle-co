@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import { steps, photo } from '../../data/store';
+---
+
+<section id="how" class="how">
+  <div class="how__wrap">
+    <div class="section-head" data-reveal>
+      <div class="stack" style="gap:20px">
+        <span class="kicker">How ordering works</span>
+        <h2 class="h2">Ranch direct beef, one animal at a time</h2>
+      </div>
+      <p class="lede" style="max-width:440px">It is a simpler way to buy beef than you might expect. Here is how it goes.</p>
+    </div>
+
+    <div class="how__card" data-reveal data-steps role="region" aria-label="Ordering steps">
+      <div class="how__media">
+        {
+          steps.map((s, i) => (
+            <Image src={photo(s.img)} alt={s.alt} widths={[700, 1100]} sizes="(min-width: 960px) 45vw, 100vw" class:list={['how__img', { 'is-active': i === 0 }]} data-step-img />
+          ))
+        }
+      </div>
+      <div class="how__text">
+        <div class="stack" style="gap:20px">
+          <span class="kicker" data-step-kicker>Step 1 of {steps.length}</span>
+          <h3 data-step-title>{steps[0].title}</h3>
+          <p class="body" style="max-width:520px" data-step-body>{steps[0].body}</p>
+          <span class="how__note" data-step-note hidden></span>
+        </div>
+        <div class="how__foot">
+          <span class="how__count" data-step-count>01 / 0{steps.length}</span>
+          <div class="how__btns">
+            <button type="button" class="how__prev" data-step-prev aria-label="Previous step"><Icon name="arrow-left" size={20} /></button>
+            <button type="button" class="how__next" data-step-next aria-label="Next step"><Icon name="arrow-right" size={20} /></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="application/json" id="steps-data" set:html={JSON.stringify(steps.map(({ title, body, note }) => ({ title, body, note: note ?? '' })))} />
+  </div>
+</section>
+
+<style>
+  .how {
+    background: var(--c-cream-2);
+    padding: var(--section-y) var(--gutter);
+  }
+  .how__wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 6vh, 64px);
+  }
+  .how__card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+    background: var(--c-white);
+    border: 1px solid var(--c-hairline);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+  }
+  .how__media {
+    position: relative;
+    min-height: clamp(320px, 36vw, 560px);
+    background: var(--c-green-800);
+  }
+  .how__media :global(.how__img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.06);
+    transition:
+      opacity 700ms ease,
+      transform 1400ms var(--ease-out);
+  }
+  .how__media :global(.how__img.is-active) {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .how__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    padding: clamp(32px, 4vw, 64px);
+  }
+  .how__text h3 {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: var(--fs-h3);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .how__note {
+    align-self: flex-start;
+    font-size: 14px;
+    line-height: 1.5;
+    background: var(--c-placeholder);
+    padding: 6px 10px;
+    border-radius: 6px;
+  }
+  .how__note[hidden] {
+    display: none;
+  }
+  .how__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--c-hairline);
+  }
+  .how__count {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--c-ink-faint);
+  }
+  .how__btns {
+    display: flex;
+    gap: 10px;
+  }
+  .how__btns button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 200ms ease;
+  }
+  .how__prev {
+    border: 1px solid rgb(31 33 29 / 0.18);
+    background: var(--c-white);
+    color: var(--c-ink);
+  }
+  .how__prev:hover {
+    background: var(--c-ink);
+    border-color: var(--c-ink);
+    color: var(--c-cream);
+    transform: translateY(-2px);
+  }
+  .how__next {
+    border: none;
+    background: var(--c-gold);
+    color: var(--c-ink);
+  }
+  .how__next:hover {
+    background: var(--c-green-900);
+    color: var(--c-cream);
+    transform: translateY(-2px);
+  }
+  .how__prev,
+  .how__next {
+    transition:
+      background-color 220ms ease,
+      color 220ms ease,
+      border-color 220ms ease,
+      transform 200ms var(--ease-out);
+  }
+</style>

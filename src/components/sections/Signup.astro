@@ -1,0 +1,110 @@
+﻿---
+import Icon from '../ui/Icon.astro';
+---
+
+<section id="signup" class="signup">
+  <div class="signup__pattern" data-pattern aria-hidden="true"></div>
+  <div class="signup__inner">
+    <div class="kicker" data-reveal>Next animal</div>
+    <h2 class="h2" data-reveal>Hear first when the next animal opens</h2>
+    <p class="lede" data-reveal style="max-width:600px">
+      Each animal sells at its own pace, and some go quickly. Leave your email and we will let you know when the next one opens, along with its breed.
+    </p>
+    <form class="signup__form" data-signup novalidate>
+      <label class="sr-only" for="signup-email">Email address</label>
+      <input id="signup-email" name="email" type="email" required autocomplete="email" placeholder="Email address" />
+      <!-- honeypot -->
+      <input class="sr-only" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <button type="submit" class="btn btn--primary"><Icon name="bell" />Notify me</button>
+    </form>
+    <p class="signup__fine" data-signup-fine>No spam. One email when an animal opens, and nothing else.</p>
+    <p class="signup__error" data-signup-error role="alert" hidden>Please enter a valid email address.</p>
+    <p class="signup__ok" role="status" data-signup-ok hidden>
+      <Icon name="circle-check" size={20} />You are on the list. We will email you when the next animal opens.
+    </p>
+  </div>
+</section>
+
+<style>
+  .signup {
+    position: relative;
+    background: var(--c-white);
+    border-top: 1px solid var(--c-hairline);
+    overflow: hidden;
+  }
+  .signup__pattern {
+    position: absolute;
+    inset: -10% -5%;
+    background-color: #f3f1ea;
+    -webkit-mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    pointer-events: none;
+  }
+  .signup__inner {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: var(--section-y) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+  .signup__form {
+    width: 100%;
+    max-width: 540px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .signup__form input[type='email'] {
+    flex: 1 1 260px;
+    min-width: 0;
+    height: 52px;
+    padding: 0 18px;
+    border-radius: var(--r-md);
+    border: 1.5px solid rgb(31 33 29 / 0.25);
+    background: var(--c-white);
+    color: var(--c-ink);
+    font: 400 16px var(--f-body);
+    transition: border-color 200ms ease;
+  }
+  .signup__form input[type='email']:focus {
+    border-color: var(--c-green-600);
+  }
+  .signup__form .btn {
+    border: none;
+  }
+  .signup__fine {
+    margin: 0;
+    font-size: 14px;
+    color: var(--c-ink-mute);
+  }
+  .signup__error {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-red);
+  }
+  .signup__ok {
+    margin: 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 22px;
+    border-radius: var(--r-lg);
+    background: rgb(212 190 95 / 0.14);
+    border: 1.5px solid var(--c-gold);
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .signup__ok :global(.icon) {
+    color: var(--c-gold);
+  }
+  [hidden] {
+    display: none !important;
+  }
+</style>
+

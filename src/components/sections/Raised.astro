@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import { hormoneDocumented, photo } from '../../data/store';
+
+const heading = hormoneDocumented ? 'Grain finished, and raised without added hormones' : 'Grain finished on a feed program we built ourselves';
+---
+
+<section class="raised">
+  <div class="raised__pattern" data-pattern aria-hidden="true"></div>
+  <div class="raised__grid">
+    <div class="stack" style="gap:24px" data-reveal>
+      <div class="kicker">How they are raised</div>
+      <h2 class="h2">{heading}</h2>
+      <p class="body">
+        Our cattle are handled calmly, on foot or on horseback, and they are grain finished. The ration is grain and corn with crimped oats, rolled barley and pecans, alongside Coastal Bermuda hay. We finish on grain because it builds the marbling that sets premium beef apart: tender, rich and full of flavor.
+      </p>
+      <p class="body">
+        We are a small operation, and we want you to be able to buy quality beef online from people you can actually talk to. The same two people who feed the cattle answer the phone and load the cooler, so when you ask us a question, you are asking the person who knows the answer.
+      </p>
+    </div>
+    <div class="raised__media" data-reveal>
+      <div class="raised__photo">
+        <Image src={photo('photo-1650397306042-b4ac1474a0d9')} alt="Riders working the herd across dry Texas grass" widths={[600, 1000]} sizes="(min-width: 960px) 40vw, 100vw" data-parallax-img />
+      </div>
+      <div class="raised__tag">Ranch to Table. Raised with Care. Produced with Purpose.</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .raised {
+    position: relative;
+    background: var(--c-cream-2);
+    overflow: hidden;
+  }
+  .raised__pattern {
+    position: absolute;
+    inset: -15% -5%;
+    background-color: var(--c-cream-3);
+    -webkit-mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    pointer-events: none;
+  }
+  .raised__grid {
+    position: relative;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: var(--section-y) var(--gutter);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+    gap: 72px clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  .raised__media {
+    position: relative;
+    padding-bottom: 28px;
+  }
+  .raised__photo {
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: var(--c-green-800);
+  }
+  .raised__photo :global(img) {
+    width: 100%;
+    height: 118%;
+    object-fit: cover;
+  }
+  .raised__tag {
+    position: absolute;
+    left: clamp(-32px, -2.5vw, 0px);
+    bottom: 0;
+    max-width: 340px;
+    background: var(--c-gold);
+    color: var(--c-green-900);
+    padding: 24px 28px;
+    border-radius: var(--r-lg);
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.25;
+  }
+</style>

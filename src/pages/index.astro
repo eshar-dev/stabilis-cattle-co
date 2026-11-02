@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StatusBar from '../components/sections/StatusBar.astro';
+import Header from '../components/sections/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import OpenNow from '../components/sections/OpenNow.astro';
+import BetweenAnimals from '../components/sections/BetweenAnimals.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+import Marquee from '../components/sections/Marquee.astro';
+import Breeds from '../components/sections/Breeds.astro';
+import Raised from '../components/sections/Raised.astro';
+import Delivery from '../components/sections/Delivery.astro';
+import WaysToBuy from '../components/sections/WaysToBuy.astro';
+import Story from '../components/sections/Story.astro';
+import Faq from '../components/sections/Faq.astro';
+import Signup from '../components/sections/Signup.astro';
+import Footer from '../components/sections/Footer.astro';
+import CartDrawer from '../components/sections/CartDrawer.astro';
+import { orderingState } from '../data/store';
+
+const between = orderingState === 'between';
+---
+
+<BaseLayout
+  title="Buy Beef Online in Dallas and Fort Worth | Stabilis Cattle Co"
+  description="We raise Red Angus, Wagyu and Akaushi and sell beef one animal at a time. Choose your cuts online and we deliver across Dallas and Fort Worth."
+>
+  <StatusBar />
+  <Header />
+  <main id="main">
+    <Hero />
+    {between ? <BetweenAnimals /> : <OpenNow />}
+    {between && <Signup />}
+    <HowItWorks />
+    <Marquee />
+    <Breeds />
+    <Raised />
+    <Delivery />
+    <WaysToBuy />
+    <Story />
+    <Faq />
+    {!between && <Signup />}
+  </main>
+  <Footer />
+  <CartDrawer />
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+const words = ['Red Angus', 'Wagyu', 'Akaushi', 'Ranch to Table'];
+const run = [...words, ...words, 'Red Angus', 'Wagyu'];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__pattern" data-pattern></div>
+  <div class="marquee__track" data-marquee>
+    {run.map((w) => <><span>{w}</span><span class="marquee__star">✦</span></>)}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    position: relative;
+    background: var(--c-green-900);
+    color: #fff;
+    overflow: hidden;
+    padding: 20px 0;
+  }
+  .marquee__pattern {
+    position: absolute;
+    inset: -40% -5%;
+    background-color: var(--c-green-700);
+    -webkit-mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    mask: url('../../assets/brand/pattern-strokes.png') center / cover no-repeat;
+    pointer-events: none;
+  }
+  .marquee__track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    white-space: nowrap;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(30px, 3.6vw, 52px);
+    line-height: 1;
+    text-transform: uppercase;
+    will-change: transform;
+  }
+  .marquee__star {
+    color: var(--c-red-bright);
+  }
+</style>

@@ -1,0 +1,172 @@
+﻿---
+import { Image } from 'astro:assets';
+import card from '../../assets/brand/delivery-card.png';
+
+const strips = [
+  { icon: 'receipt-2', title: 'Free over $200', text: 'fee' },
+  { icon: 'truck-delivery', title: 'We deliver it', text: 'The owners run the route, not a courier' },
+  { icon: 'map-2', title: 'Across DFW', text: 'towns' },
+];
+---
+
+<section id="delivery" class="delivery">
+  <div class="delivery__wrap">
+    <header class="delivery__head" data-reveal>
+      <div class="stack" style="gap:16px">
+        <span class="kicker">Delivery</span>
+        <h2 class="h2">Beef delivery to your door in Dallas and Fort Worth</h2>
+      </div>
+      <div class="delivery__intro">
+        <p class="body">
+          Our beef delivery covers the Dallas and Fort Worth area, and we do it ourselves, with no courier handoff in the middle. Orders over $200 ship free, and smaller orders are <mark class="ph">[fee]</mark>. We will let you know when your delivery is on its way, so you can plan to be home.
+        </p>
+        <div class="delivery__cta">
+          <a class="btn btn--primary" href="#delivery-check">
+            <span class="icon" style="--i:url(/icons/map-pin.svg);--s:18px" aria-hidden="true"></span>Check if we deliver to you
+          </a>
+          <p class="body">Deliveries usually go out <mark class="ph">[day or window]</mark>.</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="delivery__grid">
+      <div class="delivery__media" data-reveal>
+        <Image src={card} alt="A Stabilis thank-you card with a green wax seal, resting on wrapped beef inside a dark green delivery box" widths={[700, 1100, 1600]} sizes="(min-width: 1100px) 62vw, 100vw" />
+      </div>
+      <ul class="strips">
+        {
+          strips.map((s, i) => (
+            <li data-strip>
+              <div class="strips__top">
+                <span class="strips__ico"><span class="icon" style={`--i:url(/icons/${s.icon}.svg);--s:24px`} aria-hidden="true" /></span>
+                <span class="strips__n">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <div class="stack" style="gap:4px">
+                <span class="strips__t">{s.title}</span>
+                <span class="strips__d">
+                  {s.text === 'fee' ? <>Delivery is <mark class="ph">[fee]</mark> on smaller orders</> : s.text === 'towns' ? <mark class="ph">[List of towns and ZIP codes served]</mark> : s.text}
+                </span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .delivery {
+    background: var(--c-white);
+    padding: var(--section-y) 0;
+  }
+  .delivery__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 3vw, 48px);
+    padding: 0 clamp(20px, 2vw, 30px);
+  }
+  .delivery__head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 32px clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+  .delivery__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 680px;
+  }
+  .delivery__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+  }
+  .delivery__cta .btn {
+    flex: none;
+  }
+  .delivery__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+  .delivery__media {
+    position: relative;
+    aspect-ratio: 1424 / 1105;
+    overflow: hidden;
+    border-radius: var(--r-xl);
+    background: var(--c-green-900);
+  }
+  .delivery__media :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .strips {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .strips li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px;
+    background: var(--c-cream-2);
+    border-radius: var(--r-lg);
+  }
+  .strips__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .strips__ico {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--c-green-900);
+    color: var(--c-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .strips__ico :global(.icon) {
+    --s: 20px !important;
+  }
+  .strips__n {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--c-ink-soft);
+  }
+  .strips__t {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+  .strips__d {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--c-ink-soft);
+  }
+  @media (max-width: 900px) {
+    .delivery__grid {
+      grid-template-columns: 1fr;
+    }
+    .delivery__media {
+      aspect-ratio: 1424 / 1105;
+    }
+  }
+</style>
+
+

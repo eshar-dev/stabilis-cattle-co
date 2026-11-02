@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import { ways, photo } from '../../data/store';
+---
+
+<section class="ways">
+  <div class="ways__wrap">
+    <div class="section-head" data-reveal>
+      <div class="stack" style="gap:20px">
+        <div class="kicker">Ways to buy</div>
+        <h2 class="h2">Find your way to buy</h2>
+      </div>
+      <p class="lede" style="max-width:480px">Looking for beef for sale online? There are three ways in, depending on how you like to buy.</p>
+    </div>
+    <div class="ways__grid">
+      {
+        ways.map((w) => (
+          <a class="way" href={w.href} data-way>
+            <Image src={photo(w.img)} alt={w.alt} widths={[600, 1000]} sizes="(min-width: 960px) 33vw, 100vw" />
+            <div class="way__shade" />
+            <div class="way__body">
+              <h3>{w.title}</h3>
+              <p>{w.text}</p>
+              <span class="way__cta">{w.cta}<Icon name="arrow-right" size={16} /></span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .ways {
+    background: var(--c-cream-2);
+    padding: var(--section-y) var(--gutter);
+  }
+  .ways__wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 7vh, 72px);
+  }
+  .ways__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 24px;
+  }
+  .way {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 440px;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    color: var(--c-cream);
+  }
+  .way:hover {
+    color: var(--c-cream);
+  }
+  .way :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s var(--ease-out);
+  }
+  .way:hover :global(img) {
+    transform: scale(1.04);
+  }
+  .way__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(19 46 32 / 0) 25%, rgb(19 46 32 / 0.94) 100%);
+  }
+  .way__body {
+    position: relative;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .way__body h3 {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.1;
+  }
+  .way__body p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--c-cream-text);
+  }
+  .way__cta {
+    margin-top: 12px;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 22px;
+    background: var(--c-gold);
+    color: var(--c-ink);
+    border-radius: var(--r-md);
+    font-weight: 600;
+    font-size: 15px;
+  }
+</style>

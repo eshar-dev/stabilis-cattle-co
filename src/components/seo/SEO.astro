@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+const { title, description, image = '/og-image.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Stabilis Cattle Company',
+    description,
+    url: Astro.site?.toString(),
+    areaServed: ['Dallas, TX', 'Fort Worth, TX'],
+    slogan: 'Ranch to Table. Raised with Care. Produced with Purpose.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Stabilis Cattle Company',
+    url: Astro.site?.toString(),
+  },
+];
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Stabilis Cattle Company" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

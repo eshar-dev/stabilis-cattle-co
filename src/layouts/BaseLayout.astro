@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import SEO from '../components/seo/SEO.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <SEO title={title} description={description} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <slot />
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .skip {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    z-index: 200;
+    background: var(--c-gold);
+    color: var(--c-ink);
+    padding: 10px 16px;
+    border-radius: var(--r-md);
+    font-weight: 600;
+  }
+  .skip:focus {
+    top: 12px;
+  }
+</style>

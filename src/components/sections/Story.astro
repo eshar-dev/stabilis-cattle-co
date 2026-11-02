@@ -1,0 +1,90 @@
+﻿---
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import { photo } from '../../data/store';
+---
+
+<section id="story" class="story">
+  <div class="story__wrap">
+    <header class="story__head" data-reveal>
+      <div class="stack" style="gap:16px">
+        <div class="kicker">Our story</div>
+        <h2 class="h2">Ranch to Table. Raised with Care. Produced with Purpose.</h2>
+      </div>
+      <div class="story__intro">
+        <p class="story__lead">Stabilis is Tyler Edwards and Josh Cantrell. <mark class="ph">[One or two sentences on how the ranch started, from the client.]</mark></p>
+        <p class="body">
+          We are not trying to be the biggest beef company in Texas. We would rather raise a few breeds properly and share them with people who appreciate the difference. That is why we work one animal at a time. It lets us know every animal, and it lets you know where your dinner came from.
+        </p>
+        <a class="btn btn--secondary" href="#about" style="align-self:flex-start">More about us<Icon name="arrow-right" /></a>
+      </div>
+    </header>
+    <div class="story__photo" data-reveal>
+      <Image src={photo('photo-1635857770451-71634ff4f384')} alt="Two ranchers riding out across the property" widths={[800, 1400, 2000]} sizes="100vw" data-parallax-img />
+      <span>Stand-in · replace with Tyler &amp; Josh on the ranch</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    background: var(--c-white);
+    padding: var(--section-y) var(--gutter);
+  }
+  .story__wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 4vw, 64px);
+  }
+  .story__head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 32px clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .story__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 540px;
+    padding-top: 28px;
+  }
+  .story__lead {
+    margin: 0;
+    font-family: var(--f-display);
+    font-size: clamp(19px, 1.6vw, 22px);
+    line-height: 1.45;
+  }
+  .story__photo {
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    aspect-ratio: 2.4 / 1;
+    background: var(--c-green-800);
+    position: relative;
+  }
+  .story__photo :global(img) {
+    width: 100%;
+    height: 118%;
+    object-fit: cover;
+  }
+  .story__photo span {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    background: rgb(19 46 32 / 0.88);
+    color: var(--c-cream);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 10px;
+    border-radius: var(--r-sm);
+  }
+  @media (max-width: 700px) {
+    .story__intro { padding-top: 0; }
+    .story__photo { aspect-ratio: 4 / 3; }
+  }
+</style>
+
